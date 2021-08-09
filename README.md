@@ -1,2 +1,2 @@
 # intellij-unison
-An IntelliJ IDEA plugin for Unison programing language
+An IntelliJ IDEA plugin for Unison programming language
