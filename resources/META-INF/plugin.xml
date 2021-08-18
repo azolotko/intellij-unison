@@ -2,32 +2,26 @@
     <id>nl.zolotko.intellij-unison</id>
     <name>Unison</name>
     <version>0.0.1-SNAPSHOT</version>
-    <vendor url="https://github.com/azolotko">Alex Zolotko</vendor>
+    <vendor url="https://github.com/azolotko/intellij-unison/issues/new" email="azolotko@gmail.com">Alex Zolotko
+    </vendor>
 
     <description>An IntelliJ IDEA plugin for Unison programming language.</description>
 
     <idea-version since-build="212.0"/>
 
     <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.properties</depends>
-
-    <resource-bundle>messages.SamplePluginBundle</resource-bundle>
 
     <actions>
-        <action id="org.jetbrains.scala.samples.actions.PopupDialogAction"
-                class="org.jetbrains.scala.samples.actions.PopupDialogAction">
-            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        <action id="Unison.NewFile" class="nl.zolotko.intellij.unison.actions.NewUnisonFileAction">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewGroup1"/>
         </action>
     </actions>
 
-    <applicationListeners>
-        <listener class="org.jetbrains.scala.samples.listeners.FileOpenedListener" topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
-    </applicationListeners>
-
     <extensions defaultExtensionNs="com.intellij">
-        <notificationGroup displayType="BALLOON" id="My Plugin Notification" />
-        <toolWindow factoryClass="org.jetbrains.scala.samples.ui.MyToolWindowFactory" id="MyToolWindow" anchor="bottom"/>
-        <completion.contributor implementationClass="org.jetbrains.scala.samples.completion.SimpleCompletionContributor" language="Properties"/>
+        <fileType name="Unison Scratch File" implementationClass="nl.zolotko.intellij.unison.language.UnisonFileType$"
+                  fieldName="MODULE$" language="Unison" extensions="u"/>
+
+        <internalFileTemplate name="Unison Scratch File"/>
     </extensions>
 
 </idea-plugin>
