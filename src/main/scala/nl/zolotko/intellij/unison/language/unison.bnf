@@ -1,0 +1,30 @@
+{
+  parserClass="nl.zolotko.intellij.unison.language.parser.UnisonParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Unison"
+  psiImplClassSuffix="Impl"
+  psiPackage="nl.zolotko.intellij.unison.language.psi"
+  psiImplPackage="nl.zolotko.intellij.unison.language.psi.impl"
+
+  elementTypeHolderClass="nl.zolotko.intellij.unison.language.psi.UnisonTypes"
+  elementTypeClass="nl.zolotko.intellij.unison.language.psi.UnisonElementType"
+  tokenTypeClass="nl.zolotko.intellij.unison.language.psi.UnisonTokenType"
+
+  psiImplUtilClass="nl.zolotko.intellij.unison.language.psi.impl.UnisonPsiImplUtil"
+}
+
+unisonFile ::= CRLF*
+
+//private item_ ::= (property|COMMENT|CRLF)
+//
+//property ::= (KEY? SEPARATOR VALUE?) | KEY {
+//  pin=3
+//  recoverWhile="recover_property"
+//  mixin="nl.zolotko.intellij.unison.language.psi.impl.UnisonNamedElementImpl"
+//  implements="nl.zolotko.intellij.unison.language.psi.UnisonNamedElement"
+//  methods=[getKey getValue getName setName getNameIdentifier getPresentation]
+//}
+//
+//private recover_property ::= !(KEY|SEPARATOR|COMMENT)

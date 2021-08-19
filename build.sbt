@@ -1,9 +1,9 @@
 import org.jetbrains.sbtidea.Keys._
 
-ThisBuild / scalaVersion := "3.0.1"
+ThisBuild / scalaVersion       := "3.0.1"
 ThisBuild / intellijPluginName := "intellij-unison"
-ThisBuild / intellijBuild := "212.4746.92"
-ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
+ThisBuild / intellijBuild      := "212.4746.92"
+ThisBuild / intellijPlatform   := IntelliJPlatform.IdeaCommunity
 
 lazy val intellijUnison =
   project
@@ -11,9 +11,10 @@ lazy val intellijUnison =
     .enablePlugins(SbtIdeaPlugin)
     .settings(
       version := "0.0.1-SNAPSHOT",
-      Global / intellijAttachSources := true,
+      Compile / unmanagedSourceDirectories += baseDirectory.value / "gen",
       Compile / javacOptions ++= Seq("--release", "11"),
-      intellijPlugins += "com.intellij.properties".toPlugin,
       Compile / unmanagedResourceDirectories += baseDirectory.value / "resources",
+      intellijPlugins += "com.intellij.properties".toPlugin,
+      Global / intellijAttachSources := true,
       Test / unmanagedResourceDirectories += baseDirectory.value / "testResources"
     )
