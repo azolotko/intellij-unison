@@ -1,7 +1,6 @@
 import org.jetbrains.sbtidea.Keys._
 
-ThisBuild / scalaVersion := "2.13.6"
-//ThisBuild / scalaVersion := "3.0.1"
+ThisBuild / scalaVersion := "3.0.1"
 ThisBuild / intellijPluginName := "intellij-unison"
 ThisBuild / intellijBuild := "212.4746.92"
 ThisBuild / intellijPlatform := IntelliJPlatform.IdeaCommunity
