@@ -25,6 +25,9 @@
 
         <lang.parserDefinition language="Unison"
                                implementationClass="nl.zolotko.intellij.unison.language.UnisonParserDefinition"/>
+
+        <lang.syntaxHighlighter language="Unison"
+                                implementationClass="nl.zolotko.intellij.unison.language.UnisonSyntaxHighlighter"/>
     </extensions>
 
 </idea-plugin>

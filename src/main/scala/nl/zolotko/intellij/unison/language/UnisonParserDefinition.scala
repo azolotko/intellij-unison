@@ -8,7 +8,7 @@ import com.intellij.psi.tree.{IFileElementType, TokenSet}
 import com.intellij.psi.{FileViewProvider, PsiElement, PsiFile, TokenType}
 import nl.zolotko.intellij.unison.language.parser.UnisonParser
 import nl.zolotko.intellij.unison.language.psi.UnisonFileElementType
-import nl.zolotko.intellij.unison.language.psi.UnisonTypes.Factory
+import nl.zolotko.intellij.unison.language.psi.UnisonElementTypes.Factory
 
 class UnisonParserDefinition extends ParserDefinition {
   override def createLexer(project: Project): Lexer =
