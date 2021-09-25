@@ -46,8 +46,6 @@ class UnisonSyntaxHighlighter extends SyntaxHighlighterBase {
       TextAttributesKey.createTextAttributesKey("UNISON.DOC_CLOSE", DefaultLanguageHighlighterColors.BLOCK_COMMENT),
     UnisonElementTypes.DOC_OPEN ->
       TextAttributesKey.createTextAttributesKey("UNISON.DOC_OPEN", DefaultLanguageHighlighterColors.BLOCK_COMMENT),
-    UnisonElementTypes.DOUBLE_QUOTE ->
-      TextAttributesKey.createTextAttributesKey("UNISON.DOUBLE_QUOTE", DefaultLanguageHighlighterColors.STRING),
     UnisonElementTypes.ELSE ->
       TextAttributesKey.createTextAttributesKey("UNISON.ELSE", DefaultLanguageHighlighterColors.KEYWORD),
     UnisonElementTypes.EQUAL ->
@@ -132,6 +130,8 @@ class UnisonSyntaxHighlighter extends SyntaxHighlighterBase {
       ),
     UnisonElementTypes.NUMBER ->
       TextAttributesKey.createTextAttributesKey("UNISON.NUMBER", DefaultLanguageHighlighterColors.NUMBER),
+    UnisonElementTypes.STRING ->
+      TextAttributesKey.createTextAttributesKey("UNISON.STRING", DefaultLanguageHighlighterColors.STRING),
     UnisonElementTypes.WORDY ->
       TextAttributesKey.createTextAttributesKey("UNISON.WORDY", DefaultLanguageHighlighterColors.IDENTIFIER),
     UnisonElementTypes.SYMBOLY ->
