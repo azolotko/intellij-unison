@@ -22,23 +22,82 @@ import static nl.zolotko.intellij.unison.language.psi.UnisonElementTypes.*;
 %type IElementType
 %unicode
 
-EOL=\r|\n|\r\n
-LINE_WS=[\ \t\f]
-WHITE_SPACE=({LINE_WS}|{EOL})+
+NEWLINE=\r?\n
+WHITE_SPACE=[\ \t\f]
 
+NUMBER=\d+
 WORDY=[:letter:][a-zA-Z_0-9]*
 SYMBOLY=[:letter:][a-zA-Z_0-9]*
 
 %%
 <YYINITIAL> {
-  {WHITE_SPACE}      { return WHITE_SPACE; }
+  {NEWLINE}                        { return NEWLINE; }
+  {WHITE_SPACE}                    { return WHITE_SPACE; }
 
-  "use"              { return USE; }
-  "."                { return DOT; }
+  "unique"                         { return UNIQUE; }
+  "structural"                     { return STRUCTURAL; }
+  "type"                           { return TYPE; }
+  "ability"                        { return ABILITY; }
+  "where"                          { return WHERE; }
+  "match"                          { return MATCH; }
+  "with"                           { return WITH; }
+  "cases"                          { return CASES; }
+  "otherwise"                      { return OTHERWISE; }
+  "use"                            { return USE; }
+  "true"                           { return TRUE; }
+  "false"                          { return FALSE; }
+  "lambda"                         { return LAMBDA; }
+  "include"                        { return INCLUDE; }
+  "signature"                      { return SIGNATURE; }
+  "@signature"                     { return AT_SIGNATURE; }
+  "@inlineSignature"               { return INLINE_SIGNATURE; }
+  "@typecheck"                     { return AT_TYPECHECK; }
+  "@eval"                          { return AT_EVAL; }
+  "evaluate"                       { return EVALUATE; }
+  "source"                         { return SOURCE; }
+  "if"                             { return IF; }
+  "then"                           { return THEN; }
+  "else"                           { return ELSE; }
+  "syntax.docUntitledSection"      { return SYNTAX_DOC_UNTITLED_SECTION; }
+  "syntax.docColumn"               { return SYNTAX_DOC_COLUMN; }
+  "typeLink"                       { return TYPE_LINK; }
+  "termLink"                       { return TERM_LINK; }
+  "test>"                          { return TEST_WATCH; }
+  ">"                              { return WATCH; }
+  "[:"                             { return OPEN; }
+  ":]"                             { return CLOSE; }
+  "."                              { return DOT; }
+  ","                              { return COMMA; }
+  "("                              { return PAREN1; }
+  ")"                              { return PAREN2; }
+  "["                              { return BRACKET1; }
+  "]"                              { return BRACKET2; }
+  "{{"                             { return DOC_OPEN; }
+  "}}"                             { return DOC_CLOSE; }
+  "{"                              { return BRACE1; }
+  "}"                              { return BRACE2; }
+  ":"                              { return COLON; }
+  "forall"                         { return FORALL1; }
+  "∀"                              { return FORALL2; }
+  "="                              { return EQUAL; }
+  "|"                              { return PIPE; }
+  "||"                             { return OR; }
+  "&&"                             { return AND; }
+  "->"                             { return ARROW; }
+  "@"                              { return AT; }
+  "'"                              { return QUOTE; }
+  "\""                             { return DOUBLE_QUOTE; }
+  "!"                              { return EXCLAMATION_MARK; }
+  "`"                              { return BACK_QUOTE; }
+  "---"                            { return FOLD; }
+  "+"                              { return PLUS; }
+  "-"                              { return MINUS; }
+  "*"                              { return MUL; }
+  "_"                              { return UNDERSCORE; }
 
-  {WORDY}            { return WORDY; }
-  {SYMBOLY}          { return SYMBOLY; }
-
+  {NUMBER}                         { return NUMBER; }
+  {WORDY}                          { return WORDY; }
+  {SYMBOLY}                        { return SYMBOLY; }
 }
 
 [^] { return BAD_CHARACTER; }

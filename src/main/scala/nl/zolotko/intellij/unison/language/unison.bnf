@@ -15,9 +15,76 @@
   elementTypeHolderClass="nl.zolotko.intellij.unison.language.psi.UnisonElementTypes"
   elementTypeClass="nl.zolotko.intellij.unison.language.psi.UnisonElementType"
   tokenTypeClass="nl.zolotko.intellij.unison.language.psi.UnisonTokenType"
+
+  tokens = [
+    unique = 'unique'
+    structural = 'structural'
+    type = 'type'
+    ability = 'ability'
+    where = 'where'
+    match = 'match'
+    with = 'with'
+    cases = 'cases'
+    otherwise = 'otherwise'
+    use = 'use'
+    true = 'true'
+    false = 'false'
+    lambda = 'lambda'
+    include = 'include'
+    signature = 'signature'
+    at_signature = '@signature'
+    inline_signature = '@inlineSignature'
+    at_typecheck = '@typecheck'
+    at_eval = '@eval'
+    evaluate = 'evaluate'
+    source = 'source'
+    if = 'if'
+    then = 'then'
+    else = 'else'
+    syntax_doc_untitled_section = 'syntax.docUntitledSection'
+    syntax_doc_column = 'syntax.docColumn'
+    type_link = 'typeLink'
+    term_link = 'termLink'
+    test_watch = 'test>'
+    watch = '>'
+    open = '[:'
+    close = ':]'
+    dot = '.'
+    comma = ','
+    paren1 = '('
+    paren2 = ')'
+    bracket1 = '['
+    bracket2 = ']'
+    doc_open = '{{'
+    doc_close = '}}'
+    brace1 = '{'
+    brace2 = '}'
+    colon = ':'
+    forall1 = 'forall'
+    forall2 = '∀'
+    equal = '='
+    pipe = '|'
+    or = '||'
+    and = '&&'
+    arrow = '->'
+    at = '@'
+    quote = "'"
+    double_quote = '"'
+    exclamation_mark = '!'
+    back_quote = '`'
+    fold = '---'
+    plus = '+'
+    minus = '-'
+    mul = '*'
+    underscore = '_'
+    number = 'regexp:\d+'
+    wordy = 'regexp:[:letter:][a-zA-Z_0-9]*'
+    symboly = 'regexp:[:letter:][a-zA-Z_0-9]*'
+    newline = 'regexp:\r?\n'
+  ]
 }
 
-File ::= Imports
+File ::= Imports (Reserved | newline)*
 
 Imports ::= Import*
 
@@ -32,3 +99,10 @@ ImportWordyId ::= wordy
 ImportSymbolyId ::= symboly
 
 ImportDotId ::= dot
+
+Reserved ::= unique | structural | type | ability | where | match | with | cases | otherwise | use | true | false |
+ lambda | include | signature | at_signature | inline_signature | at_typecheck | at_eval | evaluate | source | if |
+  then | else | syntax_doc_untitled_section | syntax_doc_column | type_link | term_link | test_watch | watch | open |
+   close | dot | comma | paren1 | paren2 | bracket1 | bracket2 | doc_open | doc_close | brace1 | brace2 | colon |
+    forall1 | forall2 | equal | pipe | or | and | arrow | at | quote | double_quote | exclamation_mark | back_quote |
+     fold | plus | minus | mul | underscore | number | wordy | symboly

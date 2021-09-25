@@ -36,9 +36,35 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Imports
+  // Imports (Reserved | newline)*
   static boolean File(PsiBuilder b, int l) {
-    return Imports(b, l + 1);
+    if (!recursion_guard_(b, l, "File")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Imports(b, l + 1);
+    r = r && File_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (Reserved | newline)*
+  private static boolean File_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "File_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!File_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "File_1", c)) break;
+    }
+    return true;
+  }
+
+  // Reserved | newline
+  private static boolean File_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "File_1_0")) return false;
+    boolean r;
+    r = Reserved(b, l + 1);
+    if (!r) r = consumeToken(b, NEWLINE);
+    return r;
   }
 
   /* ********************************************************** */
@@ -148,6 +174,84 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     }
     exit_section_(b, l, m, true, false, null);
     return true;
+  }
+
+  /* ********************************************************** */
+  // unique | structural | type | ability | where | match | with | cases | otherwise | use | true | false |
+  //  lambda | include | signature | at_signature | inline_signature | at_typecheck | at_eval | evaluate | source | if |
+  //   then | else | syntax_doc_untitled_section | syntax_doc_column | type_link | term_link | test_watch | watch | open |
+  //    close | dot | comma | paren1 | paren2 | bracket1 | bracket2 | doc_open | doc_close | brace1 | brace2 | colon |
+  //     forall1 | forall2 | equal | pipe | or | and | arrow | at | quote | double_quote | exclamation_mark | back_quote |
+  //      fold | plus | minus | mul | underscore | number | wordy | symboly
+  public static boolean Reserved(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Reserved")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, RESERVED, "<reserved>");
+    r = consumeToken(b, UNIQUE);
+    if (!r) r = consumeToken(b, STRUCTURAL);
+    if (!r) r = consumeToken(b, TYPE);
+    if (!r) r = consumeToken(b, ABILITY);
+    if (!r) r = consumeToken(b, WHERE);
+    if (!r) r = consumeToken(b, MATCH);
+    if (!r) r = consumeToken(b, WITH);
+    if (!r) r = consumeToken(b, CASES);
+    if (!r) r = consumeToken(b, OTHERWISE);
+    if (!r) r = consumeToken(b, USE);
+    if (!r) r = consumeToken(b, TRUE);
+    if (!r) r = consumeToken(b, FALSE);
+    if (!r) r = consumeToken(b, LAMBDA);
+    if (!r) r = consumeToken(b, INCLUDE);
+    if (!r) r = consumeToken(b, SIGNATURE);
+    if (!r) r = consumeToken(b, AT_SIGNATURE);
+    if (!r) r = consumeToken(b, INLINE_SIGNATURE);
+    if (!r) r = consumeToken(b, AT_TYPECHECK);
+    if (!r) r = consumeToken(b, AT_EVAL);
+    if (!r) r = consumeToken(b, EVALUATE);
+    if (!r) r = consumeToken(b, SOURCE);
+    if (!r) r = consumeToken(b, IF);
+    if (!r) r = consumeToken(b, THEN);
+    if (!r) r = consumeToken(b, ELSE);
+    if (!r) r = consumeToken(b, SYNTAX_DOC_UNTITLED_SECTION);
+    if (!r) r = consumeToken(b, SYNTAX_DOC_COLUMN);
+    if (!r) r = consumeToken(b, TYPE_LINK);
+    if (!r) r = consumeToken(b, TERM_LINK);
+    if (!r) r = consumeToken(b, TEST_WATCH);
+    if (!r) r = consumeToken(b, WATCH);
+    if (!r) r = consumeToken(b, OPEN);
+    if (!r) r = consumeToken(b, CLOSE);
+    if (!r) r = consumeToken(b, DOT);
+    if (!r) r = consumeToken(b, COMMA);
+    if (!r) r = consumeToken(b, PAREN1);
+    if (!r) r = consumeToken(b, PAREN2);
+    if (!r) r = consumeToken(b, BRACKET1);
+    if (!r) r = consumeToken(b, BRACKET2);
+    if (!r) r = consumeToken(b, DOC_OPEN);
+    if (!r) r = consumeToken(b, DOC_CLOSE);
+    if (!r) r = consumeToken(b, BRACE1);
+    if (!r) r = consumeToken(b, BRACE2);
+    if (!r) r = consumeToken(b, COLON);
+    if (!r) r = consumeToken(b, FORALL1);
+    if (!r) r = consumeToken(b, FORALL2);
+    if (!r) r = consumeToken(b, EQUAL);
+    if (!r) r = consumeToken(b, PIPE);
+    if (!r) r = consumeToken(b, OR);
+    if (!r) r = consumeToken(b, AND);
+    if (!r) r = consumeToken(b, ARROW);
+    if (!r) r = consumeToken(b, AT);
+    if (!r) r = consumeToken(b, QUOTE);
+    if (!r) r = consumeToken(b, DOUBLE_QUOTE);
+    if (!r) r = consumeToken(b, EXCLAMATION_MARK);
+    if (!r) r = consumeToken(b, BACK_QUOTE);
+    if (!r) r = consumeToken(b, FOLD);
+    if (!r) r = consumeToken(b, PLUS);
+    if (!r) r = consumeToken(b, MINUS);
+    if (!r) r = consumeToken(b, MUL);
+    if (!r) r = consumeToken(b, UNDERSCORE);
+    if (!r) r = consumeToken(b, NUMBER);
+    if (!r) r = consumeToken(b, WORDY);
+    if (!r) r = consumeToken(b, SYMBOLY);
+    exit_section_(b, l, m, r, false, null);
+    return r;
   }
 
 }

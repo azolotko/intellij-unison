@@ -5,9 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface UnisonImportSymbolyId extends PsiElement {
+public interface UnisonReserved extends PsiElement {
 
-  @NotNull
+  @Nullable
+  PsiElement getNumber();
+
+  @Nullable
   PsiElement getSymboly();
+
+  @Nullable
+  PsiElement getWordy();
 
 }

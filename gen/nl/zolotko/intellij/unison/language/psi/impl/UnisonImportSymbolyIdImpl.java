@@ -27,4 +27,10 @@ public class UnisonImportSymbolyIdImpl extends ASTWrapperPsiElement implements U
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getSymboly() {
+    return findNotNullChildByType(SYMBOLY);
+  }
+
 }
