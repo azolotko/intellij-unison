@@ -84,11 +84,11 @@
   ]
 }
 
-File ::= Imports (Expression | newline)*
+File ::= Imports? Expression*
 
-Imports ::= Import*
+Imports ::= Import+
 
-Import ::= use ImportPrefix ImportSuffix*
+Import ::= use ImportPrefix ImportSuffix* newline
 
 ImportPrefix ::= (ImportWordyId | ImportDotId) | ImportSymbolyId
 
@@ -100,9 +100,9 @@ ImportSymbolyId ::= symboly
 
 ImportDotId ::= dot
 
-Expression ::= Reserved | string
+Expression ::= Import | ((Reserved | string) | newline)
 
-Reserved ::= unique | structural | type | ability | where | match | with | cases | otherwise | use | true | false |
+Reserved ::= unique | structural | type | ability | where | match | with | cases | otherwise | true | false |
  lambda | include | signature | at_signature | inline_signature | at_typecheck | at_eval | evaluate | source | if |
   then | else | syntax_doc_untitled_section | syntax_doc_column | type_link | term_link | test_watch | watch | open |
    close | dot | comma | paren1 | paren2 | bracket1 | bracket2 | doc_open | doc_close | brace1 | brace2 | colon |

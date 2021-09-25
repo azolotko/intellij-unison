@@ -39,4 +39,10 @@ public class UnisonImportImpl extends ASTWrapperPsiElement implements UnisonImpo
     return PsiTreeUtil.getChildrenOfTypeAsList(this, UnisonImportSuffix.class);
   }
 
+  @Override
+  @NotNull
+  public PsiElement getNewline() {
+    return findNotNullChildByType(NEWLINE);
+  }
+
 }

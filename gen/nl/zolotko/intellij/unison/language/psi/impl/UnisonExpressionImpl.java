@@ -29,8 +29,20 @@ public class UnisonExpressionImpl extends ASTWrapperPsiElement implements Unison
 
   @Override
   @Nullable
+  public UnisonImport getImport() {
+    return findChildByClass(UnisonImport.class);
+  }
+
+  @Override
+  @Nullable
   public UnisonReserved getReserved() {
     return findChildByClass(UnisonReserved.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getNewline() {
+    return findChildByType(NEWLINE);
   }
 
   @Override
