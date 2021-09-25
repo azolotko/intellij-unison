@@ -13,4 +13,7 @@ public interface UnisonImport extends PsiElement {
   @NotNull
   List<UnisonImportSuffix> getImportSuffixList();
 
+  @NotNull
+  PsiElement getNewline();
+
 }

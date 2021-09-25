@@ -8,7 +8,13 @@ import com.intellij.psi.PsiElement;
 public interface UnisonExpression extends PsiElement {
 
   @Nullable
+  UnisonImport getImport();
+
+  @Nullable
   UnisonReserved getReserved();
+
+  @Nullable
+  PsiElement getNewline();
 
   @Nullable
   PsiElement getString();

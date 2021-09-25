@@ -36,51 +36,69 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Reserved | string
+  // Import | ((Reserved | string) | newline)
   public static boolean Expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
-    r = Reserved(b, l + 1);
-    if (!r) r = consumeToken(b, STRING);
+    r = Import(b, l + 1);
+    if (!r) r = Expression_1(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // (Reserved | string) | newline
+  private static boolean Expression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Expression_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Expression_1_0(b, l + 1);
+    if (!r) r = consumeToken(b, NEWLINE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // Reserved | string
+  private static boolean Expression_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Expression_1_0")) return false;
+    boolean r;
+    r = Reserved(b, l + 1);
+    if (!r) r = consumeToken(b, STRING);
+    return r;
+  }
+
   /* ********************************************************** */
-  // Imports (Expression | newline)*
+  // Imports? Expression*
   static boolean File(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "File")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = Imports(b, l + 1);
+    r = File_0(b, l + 1);
     r = r && File_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // (Expression | newline)*
+  // Imports?
+  private static boolean File_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "File_0")) return false;
+    Imports(b, l + 1);
+    return true;
+  }
+
+  // Expression*
   private static boolean File_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "File_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!File_1_0(b, l + 1)) break;
+      if (!Expression(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "File_1", c)) break;
     }
     return true;
   }
 
-  // Expression | newline
-  private static boolean File_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "File_1_0")) return false;
-    boolean r;
-    r = Expression(b, l + 1);
-    if (!r) r = consumeToken(b, NEWLINE);
-    return r;
-  }
-
   /* ********************************************************** */
-  // use ImportPrefix ImportSuffix*
+  // use ImportPrefix ImportSuffix* newline
   public static boolean Import(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Import")) return false;
     if (!nextTokenIs(b, USE)) return false;
@@ -89,6 +107,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, USE);
     r = r && ImportPrefix(b, l + 1);
     r = r && Import_2(b, l + 1);
+    r = r && consumeToken(b, NEWLINE);
     exit_section_(b, m, IMPORT, r);
     return r;
   }
@@ -175,21 +194,24 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Import*
+  // Import+
   public static boolean Imports(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Imports")) return false;
-    Marker m = enter_section_(b, l, _NONE_, IMPORTS, "<imports>");
-    while (true) {
+    if (!nextTokenIs(b, USE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = Import(b, l + 1);
+    while (r) {
       int c = current_position_(b);
       if (!Import(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "Imports", c)) break;
     }
-    exit_section_(b, l, m, true, false, null);
-    return true;
+    exit_section_(b, m, IMPORTS, r);
+    return r;
   }
 
   /* ********************************************************** */
-  // unique | structural | type | ability | where | match | with | cases | otherwise | use | true | false |
+  // unique | structural | type | ability | where | match | with | cases | otherwise | true | false |
   //  lambda | include | signature | at_signature | inline_signature | at_typecheck | at_eval | evaluate | source | if |
   //   then | else | syntax_doc_untitled_section | syntax_doc_column | type_link | term_link | test_watch | watch | open |
   //    close | dot | comma | paren1 | paren2 | bracket1 | bracket2 | doc_open | doc_close | brace1 | brace2 | colon |
@@ -208,7 +230,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, WITH);
     if (!r) r = consumeToken(b, CASES);
     if (!r) r = consumeToken(b, OTHERWISE);
-    if (!r) r = consumeToken(b, USE);
     if (!r) r = consumeToken(b, TRUE);
     if (!r) r = consumeToken(b, FALSE);
     if (!r) r = consumeToken(b, LAMBDA);
