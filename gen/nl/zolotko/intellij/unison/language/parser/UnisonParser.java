@@ -36,7 +36,19 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Imports (Reserved | newline)*
+  // Reserved | string
+  public static boolean Expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Expression")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, EXPRESSION, "<expression>");
+    r = Reserved(b, l + 1);
+    if (!r) r = consumeToken(b, STRING);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // Imports (Expression | newline)*
   static boolean File(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "File")) return false;
     boolean r;
@@ -47,7 +59,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (Reserved | newline)*
+  // (Expression | newline)*
   private static boolean File_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "File_1")) return false;
     while (true) {
@@ -58,11 +70,11 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // Reserved | newline
+  // Expression | newline
   private static boolean File_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "File_1_0")) return false;
     boolean r;
-    r = Reserved(b, l + 1);
+    r = Expression(b, l + 1);
     if (!r) r = consumeToken(b, NEWLINE);
     return r;
   }
@@ -181,7 +193,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   //  lambda | include | signature | at_signature | inline_signature | at_typecheck | at_eval | evaluate | source | if |
   //   then | else | syntax_doc_untitled_section | syntax_doc_column | type_link | term_link | test_watch | watch | open |
   //    close | dot | comma | paren1 | paren2 | bracket1 | bracket2 | doc_open | doc_close | brace1 | brace2 | colon |
-  //     forall1 | forall2 | equal | pipe | or | and | arrow | at | quote | double_quote | exclamation_mark | back_quote |
+  //     forall1 | forall2 | equal | pipe | or | and | arrow | at | quote | exclamation_mark | back_quote |
   //      fold | plus | minus | mul | underscore | number | wordy | symboly
   public static boolean Reserved(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Reserved")) return false;
@@ -239,7 +251,6 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, ARROW);
     if (!r) r = consumeToken(b, AT);
     if (!r) r = consumeToken(b, QUOTE);
-    if (!r) r = consumeToken(b, DOUBLE_QUOTE);
     if (!r) r = consumeToken(b, EXCLAMATION_MARK);
     if (!r) r = consumeToken(b, BACK_QUOTE);
     if (!r) r = consumeToken(b, FOLD);

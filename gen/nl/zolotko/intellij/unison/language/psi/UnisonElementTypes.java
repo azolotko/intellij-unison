@@ -8,6 +8,7 @@ import nl.zolotko.intellij.unison.language.psi.impl.*;
 
 public interface UnisonElementTypes {
 
+  IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
   IElementType IMPORT = new UnisonElementType("IMPORT");
   IElementType IMPORTS = new UnisonElementType("IMPORTS");
   IElementType IMPORT_DOT_ID = new UnisonElementType("IMPORT_DOT_ID");
@@ -36,7 +37,6 @@ public interface UnisonElementTypes {
   IElementType DOC_CLOSE = new UnisonTokenType("}}");
   IElementType DOC_OPEN = new UnisonTokenType("{{");
   IElementType DOT = new UnisonTokenType(".");
-  IElementType DOUBLE_QUOTE = new UnisonTokenType("\"");
   IElementType ELSE = new UnisonTokenType("else");
   IElementType EQUAL = new UnisonTokenType("=");
   IElementType EVALUATE = new UnisonTokenType("evaluate");
@@ -64,6 +64,7 @@ public interface UnisonElementTypes {
   IElementType QUOTE = new UnisonTokenType("'");
   IElementType SIGNATURE = new UnisonTokenType("signature");
   IElementType SOURCE = new UnisonTokenType("source");
+  IElementType STRING = new UnisonTokenType("string");
   IElementType STRUCTURAL = new UnisonTokenType("structural");
   IElementType SYMBOLY = new UnisonTokenType("symboly");
   IElementType SYNTAX_DOC_COLUMN = new UnisonTokenType("syntax.docColumn");
@@ -85,7 +86,10 @@ public interface UnisonElementTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == IMPORT) {
+      if (type == EXPRESSION) {
+        return new UnisonExpressionImpl(node);
+      }
+      else if (type == IMPORT) {
         return new UnisonImportImpl(node);
       }
       else if (type == IMPORTS) {

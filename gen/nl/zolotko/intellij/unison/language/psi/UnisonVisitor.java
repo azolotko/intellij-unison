@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class UnisonVisitor extends PsiElementVisitor {
 
+  public void visitExpression(@NotNull UnisonExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitImport(@NotNull UnisonImport o) {
     visitPsiElement(o);
   }
