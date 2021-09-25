@@ -13,7 +13,7 @@
 
     <actions>
         <action id="Unison.NewFile" class="nl.zolotko.intellij.unison.actions.NewUnisonFileAction">
-            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewGroup1"/>
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
         </action>
     </actions>
 
@@ -22,6 +22,12 @@
                   fieldName="MODULE$" language="Unison" extensions="u"/>
 
         <internalFileTemplate name="Unison Scratch File"/>
+
+        <lang.parserDefinition language="Unison"
+                               implementationClass="nl.zolotko.intellij.unison.language.UnisonParserDefinition"/>
+
+        <lang.syntaxHighlighter language="Unison"
+                                implementationClass="nl.zolotko.intellij.unison.language.UnisonSyntaxHighlighter"/>
     </extensions>
 
 </idea-plugin>
