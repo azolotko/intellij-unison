@@ -26,6 +26,9 @@ NEWLINE=\r?\n
 WHITE_SPACE=[\ \t\f]
 
 NUMBER=\d+
+
+STRING=\"([^\"]|\\[0abfnrtvs\"'\\])*\"
+
 WORDY=[:letter:][a-zA-Z_0-9]*
 SYMBOLY=[:letter:][a-zA-Z_0-9]*
 
@@ -86,7 +89,6 @@ SYMBOLY=[:letter:][a-zA-Z_0-9]*
   "->"                             { return ARROW; }
   "@"                              { return AT; }
   "'"                              { return QUOTE; }
-  "\""                             { return DOUBLE_QUOTE; }
   "!"                              { return EXCLAMATION_MARK; }
   "`"                              { return BACK_QUOTE; }
   "---"                            { return FOLD; }
@@ -96,6 +98,7 @@ SYMBOLY=[:letter:][a-zA-Z_0-9]*
   "_"                              { return UNDERSCORE; }
 
   {NUMBER}                         { return NUMBER; }
+  {STRING}                         { return STRING; }
   {WORDY}                          { return WORDY; }
   {SYMBOLY}                        { return SYMBOLY; }
 }
