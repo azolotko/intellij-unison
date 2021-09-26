@@ -43,6 +43,10 @@ public class UnisonVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitString(@NotNull UnisonString o) {
+    visitPsiElement(o);
+  }
+
   public void visitPsiElement(@NotNull PsiElement o) {
     visitElement(o);
   }

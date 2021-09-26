@@ -132,6 +132,20 @@ class UnisonSyntaxHighlighter extends SyntaxHighlighterBase {
       TextAttributesKey.createTextAttributesKey("UNISON.NUMBER", DefaultLanguageHighlighterColors.NUMBER),
     UnisonElementTypes.STRING ->
       TextAttributesKey.createTextAttributesKey("UNISON.STRING", DefaultLanguageHighlighterColors.STRING),
+    UnisonElementTypes.DOUBLE_QUOTE ->
+      TextAttributesKey.createTextAttributesKey("UNISON.DOUBLE_QUOTE", DefaultLanguageHighlighterColors.STRING),
+    UnisonElementTypes.STRING_SPAN ->
+      TextAttributesKey.createTextAttributesKey("UNISON.STRING_SPAN", DefaultLanguageHighlighterColors.STRING),
+    UnisonElementTypes.STRING_ESCAPE_SEQUENCE ->
+      TextAttributesKey.createTextAttributesKey(
+        "UNISON.STRING_ESCAPE_SEQUENCE",
+        DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+      ),
+    UnisonElementTypes.STRING_BAD_CHARACTER ->
+      TextAttributesKey.createTextAttributesKey(
+        "UNISON.STRING_BAD_CHARACTER",
+        DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE
+      ),
     UnisonElementTypes.WORDY ->
       TextAttributesKey.createTextAttributesKey("UNISON.WORDY", DefaultLanguageHighlighterColors.IDENTIFIER),
     UnisonElementTypes.SYMBOLY ->

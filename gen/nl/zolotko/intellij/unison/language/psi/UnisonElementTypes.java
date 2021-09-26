@@ -17,6 +17,7 @@ public interface UnisonElementTypes {
   IElementType IMPORT_SYMBOLY_ID = new UnisonElementType("IMPORT_SYMBOLY_ID");
   IElementType IMPORT_WORDY_ID = new UnisonElementType("IMPORT_WORDY_ID");
   IElementType RESERVED = new UnisonElementType("RESERVED");
+  IElementType STRING = new UnisonElementType("STRING");
 
   IElementType ABILITY = new UnisonTokenType("ability");
   IElementType AND = new UnisonTokenType("&&");
@@ -37,6 +38,7 @@ public interface UnisonElementTypes {
   IElementType DOC_CLOSE = new UnisonTokenType("}}");
   IElementType DOC_OPEN = new UnisonTokenType("{{");
   IElementType DOT = new UnisonTokenType(".");
+  IElementType DOUBLE_QUOTE = new UnisonTokenType("double_quote");
   IElementType ELSE = new UnisonTokenType("else");
   IElementType EQUAL = new UnisonTokenType("=");
   IElementType EVALUATE = new UnisonTokenType("evaluate");
@@ -64,7 +66,9 @@ public interface UnisonElementTypes {
   IElementType QUOTE = new UnisonTokenType("'");
   IElementType SIGNATURE = new UnisonTokenType("signature");
   IElementType SOURCE = new UnisonTokenType("source");
-  IElementType STRING = new UnisonTokenType("string");
+  IElementType STRING_BAD_CHARACTER = new UnisonTokenType("string_bad_character");
+  IElementType STRING_ESCAPE_SEQUENCE = new UnisonTokenType("string_escape_sequence");
+  IElementType STRING_SPAN = new UnisonTokenType("string_span");
   IElementType STRUCTURAL = new UnisonTokenType("structural");
   IElementType SYMBOLY = new UnisonTokenType("symboly");
   IElementType SYNTAX_DOC_COLUMN = new UnisonTokenType("syntax.docColumn");
@@ -112,6 +116,9 @@ public interface UnisonElementTypes {
       }
       else if (type == RESERVED) {
         return new UnisonReservedImpl(node);
+      }
+      else if (type == STRING) {
+        return new UnisonStringImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

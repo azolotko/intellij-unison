@@ -22,12 +22,15 @@ import static nl.zolotko.intellij.unison.language.psi.UnisonElementTypes.*;
 %type IElementType
 %unicode
 
+%state INSTRING
+
 NEWLINE=\r?\n
 WHITE_SPACE=[\ \t\f]
 
 NUMBER=\d+
 
-STRING=\"([^\"]|\\[0abfnrtvs\"'\\])*\"
+STRING_SPAN=[^\"\\]+
+STRING_ESCAPE_SEQUENCE=\\[0abfnrtvs\"'\\]
 
 WORDY=[:letter:][a-zA-Z_0-9]*
 SYMBOLY=[:letter:][a-zA-Z_0-9]*
@@ -98,9 +101,22 @@ SYMBOLY=[:letter:][a-zA-Z_0-9]*
   "_"                              { return UNDERSCORE; }
 
   {NUMBER}                         { return NUMBER; }
-  {STRING}                         { return STRING; }
+  "\""                             {
+                                      yybegin(INSTRING);
+                                      return DOUBLE_QUOTE;
+                                   }
   {WORDY}                          { return WORDY; }
   {SYMBOLY}                        { return SYMBOLY; }
+}
+
+<INSTRING> {
+  {STRING_ESCAPE_SEQUENCE}        { return STRING_ESCAPE_SEQUENCE; }
+  {STRING_SPAN}                   { return STRING_SPAN; }
+  \"                              {
+                                    yybegin(YYINITIAL);
+                                    return DOUBLE_QUOTE;
+                                  }
+  [^]                             { return STRING_BAD_CHARACTER; }
 }
 
 [^] { return BAD_CHARACTER; }

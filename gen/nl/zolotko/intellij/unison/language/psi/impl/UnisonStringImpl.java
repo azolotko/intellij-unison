@@ -11,44 +11,20 @@ import static nl.zolotko.intellij.unison.language.psi.UnisonElementTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.zolotko.intellij.unison.language.psi.*;
 
-public class UnisonExpressionImpl extends ASTWrapperPsiElement implements UnisonExpression {
+public class UnisonStringImpl extends ASTWrapperPsiElement implements UnisonString {
 
-  public UnisonExpressionImpl(@NotNull ASTNode node) {
+  public UnisonStringImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull UnisonVisitor visitor) {
-    visitor.visitExpression(this);
+    visitor.visitString(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof UnisonVisitor) accept((UnisonVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public UnisonImport getImport() {
-    return findChildByClass(UnisonImport.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonReserved getReserved() {
-    return findChildByClass(UnisonReserved.class);
-  }
-
-  @Override
-  @Nullable
-  public UnisonString getString() {
-    return findChildByClass(UnisonString.class);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getNewline() {
-    return findChildByType(NEWLINE);
   }
 
 }
