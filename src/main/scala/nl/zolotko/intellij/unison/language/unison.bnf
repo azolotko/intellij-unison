@@ -77,10 +77,10 @@
     mul = '*'
     underscore = '_'
     number = 'regexp:\d+'
-    string = "regexp:\"([^\"]|\\[0abfnrtvs\"'\\])*\""
     wordy = 'regexp:[:letter:][a-zA-Z_0-9]*'
     symboly = 'regexp:[:letter:][a-zA-Z_0-9]*'
     newline = 'regexp:\r?\n'
+    string_bad_character = 'regexp:.'
   ]
 }
 
@@ -100,7 +100,9 @@ ImportSymbolyId ::= symboly
 
 ImportDotId ::= dot
 
-Expression ::= Import | ((Reserved | string) | newline)
+Expression ::= Import | ((Reserved | String) | newline)
+
+String ::= double_quote (string_span | string_escape_sequence)* double_quote
 
 Reserved ::= unique | structural | type | ability | where | match | with | cases | otherwise | true | false |
  lambda | include | signature | at_signature | inline_signature | at_typecheck | at_eval | evaluate | source | if |

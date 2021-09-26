@@ -14,9 +14,9 @@ public interface UnisonExpression extends PsiElement {
   UnisonReserved getReserved();
 
   @Nullable
-  PsiElement getNewline();
+  UnisonString getString();
 
   @Nullable
-  PsiElement getString();
+  PsiElement getNewline();
 
 }

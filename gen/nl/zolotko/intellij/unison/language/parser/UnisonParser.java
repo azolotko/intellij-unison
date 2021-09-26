@@ -36,7 +36,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Import | ((Reserved | string) | newline)
+  // Import | ((Reserved | String) | newline)
   public static boolean Expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression")) return false;
     boolean r;
@@ -47,7 +47,7 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (Reserved | string) | newline
+  // (Reserved | String) | newline
   private static boolean Expression_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression_1")) return false;
     boolean r;
@@ -58,12 +58,12 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // Reserved | string
+  // Reserved | String
   private static boolean Expression_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Expression_1_0")) return false;
     boolean r;
     r = Reserved(b, l + 1);
-    if (!r) r = consumeToken(b, STRING);
+    if (!r) r = String(b, l + 1);
     return r;
   }
 
@@ -283,6 +283,40 @@ public class UnisonParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, WORDY);
     if (!r) r = consumeToken(b, SYMBOLY);
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // double_quote (string_span | string_escape_sequence)* double_quote
+  public static boolean String(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "String")) return false;
+    if (!nextTokenIs(b, DOUBLE_QUOTE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DOUBLE_QUOTE);
+    r = r && String_1(b, l + 1);
+    r = r && consumeToken(b, DOUBLE_QUOTE);
+    exit_section_(b, m, STRING, r);
+    return r;
+  }
+
+  // (string_span | string_escape_sequence)*
+  private static boolean String_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "String_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!String_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "String_1", c)) break;
+    }
+    return true;
+  }
+
+  // string_span | string_escape_sequence
+  private static boolean String_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "String_1_0")) return false;
+    boolean r;
+    r = consumeToken(b, STRING_SPAN);
+    if (!r) r = consumeToken(b, STRING_ESCAPE_SEQUENCE);
     return r;
   }
 
