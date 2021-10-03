@@ -8,7 +8,15 @@ import nl.zolotko.intellij.unison.language.psi.impl.*;
 
 public interface UnisonElementTypes {
 
-  IElementType EXPRESSION = new UnisonElementType("EXPRESSION");
+  IElementType ABILITY_CONSTRUCTOR = new UnisonElementType("ABILITY_CONSTRUCTOR");
+  IElementType ABILITY_CONSTRUCTORS = new UnisonElementType("ABILITY_CONSTRUCTORS");
+  IElementType ABILITY_NAME = new UnisonElementType("ABILITY_NAME");
+  IElementType ABILITY_TYPE_ARG = new UnisonElementType("ABILITY_TYPE_ARG");
+  IElementType ABILITY_TYPE_ARGS = new UnisonElementType("ABILITY_TYPE_ARGS");
+  IElementType DATA_DECLARATION = new UnisonElementType("DATA_DECLARATION");
+  IElementType DECLARATION = new UnisonElementType("DECLARATION");
+  IElementType DECLARATIONS = new UnisonElementType("DECLARATIONS");
+  IElementType EFFECT_DECLARATION = new UnisonElementType("EFFECT_DECLARATION");
   IElementType IMPORT = new UnisonElementType("IMPORT");
   IElementType IMPORTS = new UnisonElementType("IMPORTS");
   IElementType IMPORT_DOT_ID = new UnisonElementType("IMPORT_DOT_ID");
@@ -16,8 +24,16 @@ public interface UnisonElementTypes {
   IElementType IMPORT_SUFFIX = new UnisonElementType("IMPORT_SUFFIX");
   IElementType IMPORT_SYMBOLY_ID = new UnisonElementType("IMPORT_SYMBOLY_ID");
   IElementType IMPORT_WORDY_ID = new UnisonElementType("IMPORT_WORDY_ID");
+  IElementType MODIFIER = new UnisonElementType("MODIFIER");
+  IElementType OTHER_EXPRESSION = new UnisonElementType("OTHER_EXPRESSION");
+  IElementType PREFIX_DEFINITION_NAME = new UnisonElementType("PREFIX_DEFINITION_NAME");
   IElementType RESERVED = new UnisonElementType("RESERVED");
+  IElementType SEMI = new UnisonElementType("SEMI");
   IElementType STRING = new UnisonElementType("STRING");
+  IElementType SYMBOLY_DEFINITION_NAME = new UnisonElementType("SYMBOLY_DEFINITION_NAME");
+  IElementType SYMBOLY_ID = new UnisonElementType("SYMBOLY_ID");
+  IElementType WORDY_DEFINITION_NAME = new UnisonElementType("WORDY_DEFINITION_NAME");
+  IElementType WORDY_ID = new UnisonElementType("WORDY_ID");
 
   IElementType ABILITY = new UnisonTokenType("ability");
   IElementType AND = new UnisonTokenType("&&");
@@ -27,6 +43,7 @@ public interface UnisonElementTypes {
   IElementType AT_SIGNATURE = new UnisonTokenType("@signature");
   IElementType AT_TYPECHECK = new UnisonTokenType("@typecheck");
   IElementType BACK_QUOTE = new UnisonTokenType("`");
+  IElementType BLANK = new UnisonTokenType("blank");
   IElementType BRACE1 = new UnisonTokenType("{");
   IElementType BRACE2 = new UnisonTokenType("}");
   IElementType BRACKET1 = new UnisonTokenType("[");
@@ -90,8 +107,32 @@ public interface UnisonElementTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == EXPRESSION) {
-        return new UnisonExpressionImpl(node);
+      if (type == ABILITY_CONSTRUCTOR) {
+        return new UnisonAbilityConstructorImpl(node);
+      }
+      else if (type == ABILITY_CONSTRUCTORS) {
+        return new UnisonAbilityConstructorsImpl(node);
+      }
+      else if (type == ABILITY_NAME) {
+        return new UnisonAbilityNameImpl(node);
+      }
+      else if (type == ABILITY_TYPE_ARG) {
+        return new UnisonAbilityTypeArgImpl(node);
+      }
+      else if (type == ABILITY_TYPE_ARGS) {
+        return new UnisonAbilityTypeArgsImpl(node);
+      }
+      else if (type == DATA_DECLARATION) {
+        return new UnisonDataDeclarationImpl(node);
+      }
+      else if (type == DECLARATION) {
+        return new UnisonDeclarationImpl(node);
+      }
+      else if (type == DECLARATIONS) {
+        return new UnisonDeclarationsImpl(node);
+      }
+      else if (type == EFFECT_DECLARATION) {
+        return new UnisonEffectDeclarationImpl(node);
       }
       else if (type == IMPORT) {
         return new UnisonImportImpl(node);
@@ -114,11 +155,35 @@ public interface UnisonElementTypes {
       else if (type == IMPORT_WORDY_ID) {
         return new UnisonImportWordyIdImpl(node);
       }
+      else if (type == MODIFIER) {
+        return new UnisonModifierImpl(node);
+      }
+      else if (type == OTHER_EXPRESSION) {
+        return new UnisonOtherExpressionImpl(node);
+      }
+      else if (type == PREFIX_DEFINITION_NAME) {
+        return new UnisonPrefixDefinitionNameImpl(node);
+      }
       else if (type == RESERVED) {
         return new UnisonReservedImpl(node);
       }
+      else if (type == SEMI) {
+        return new UnisonSemiImpl(node);
+      }
       else if (type == STRING) {
         return new UnisonStringImpl(node);
+      }
+      else if (type == SYMBOLY_DEFINITION_NAME) {
+        return new UnisonSymbolyDefinitionNameImpl(node);
+      }
+      else if (type == SYMBOLY_ID) {
+        return new UnisonSymbolyIdImpl(node);
+      }
+      else if (type == WORDY_DEFINITION_NAME) {
+        return new UnisonWordyDefinitionNameImpl(node);
+      }
+      else if (type == WORDY_ID) {
+        return new UnisonWordyIdImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

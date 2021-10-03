@@ -77,16 +77,17 @@
     mul = '*'
     underscore = '_'
     number = 'regexp:\d+'
-    wordy = 'regexp:[:letter:][a-zA-Z_0-9]*'
-    symboly = 'regexp:[:letter:][a-zA-Z_0-9]*'
+    wordy = 'regexp:(\.?[:letter:][a-zA-Z_0-9]*)+'
+    blank = 'regexp:_([:letter:][a-zA-Z_0-9]*)?'
+    symboly = 'regexp:(\.?[:letter:][a-zA-Z_0-9]*)*\.?(\!\$%\^&\*-=\+<>\.\~\\\/\|:)+'
     newline = 'regexp:\r?\n'
     string_bad_character = 'regexp:.'
   ]
 }
 
-File ::= Imports? Expression*
+File ::= Imports Declarations
 
-Imports ::= Import+
+Imports ::= Import*
 
 Import ::= use ImportPrefix ImportSuffix* newline
 
@@ -94,17 +95,49 @@ ImportPrefix ::= (ImportWordyId | ImportDotId) | ImportSymbolyId
 
 ImportSuffix ::= ImportWordyId | ImportSymbolyId
 
-ImportWordyId ::= wordy
+ImportWordyId ::= WordyId
 
-ImportSymbolyId ::= symboly
+ImportSymbolyId ::= SymbolyId
 
 ImportDotId ::= dot
 
-Expression ::= Import | ((Reserved | String) | newline)
+Declarations ::= Declaration*
+
+Declaration ::= Modifier? (EffectDeclaration | DataDeclaration)
+
+Modifier ::= unique (bracket1 wordy bracket2)? | structural
+
+EffectDeclaration ::= ability AbilityName AbilityTypeArgs where AbilityConstructors
+
+AbilityName ::= PrefixDefinitionName
+
+AbilityTypeArgs ::= AbilityTypeArg*
+
+AbilityTypeArg ::= PrefixDefinitionName
+
+AbilityConstructors ::= (AbilityConstructor Semi)
+
+AbilityConstructor ::= OtherExpression // TODO
+
+PrefixDefinitionName ::= WordyDefinitionName | paren1 SymbolyDefinitionName paren2
+
+WordyDefinitionName ::= WordyId | blank
+
+WordyId ::= wordy
+
+SymbolyId ::= symboly
+
+SymbolyDefinitionName ::= SymbolyId
+
+DataDeclaration ::= OtherExpression // TODO
+
+Semi ::= newline
+
+OtherExpression ::= Import | ((Reserved | String) | newline)
 
 String ::= double_quote (string_span | string_escape_sequence)* double_quote
 
-Reserved ::= unique | structural | type | ability | where | match | with | cases | otherwise | true | false |
+Reserved ::= type | where | match | with | cases | otherwise | true | false |
  lambda | include | signature | at_signature | inline_signature | at_typecheck | at_eval | evaluate | source | if |
   then | else | syntax_doc_untitled_section | syntax_doc_column | type_link | term_link | test_watch | watch | open |
    close | dot | comma | paren1 | paren2 | bracket1 | bracket2 | doc_open | doc_close | brace1 | brace2 | colon |

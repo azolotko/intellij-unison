@@ -29,8 +29,8 @@ public class UnisonImportWordyIdImpl extends ASTWrapperPsiElement implements Uni
 
   @Override
   @NotNull
-  public PsiElement getWordy() {
-    return findNotNullChildByType(WORDY);
+  public UnisonWordyId getWordyId() {
+    return findNotNullChildByClass(UnisonWordyId.class);
   }
 
 }

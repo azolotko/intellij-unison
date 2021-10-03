@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface UnisonImportWordyId extends PsiElement {
 
   @NotNull
-  PsiElement getWordy();
+  UnisonWordyId getWordyId();
 
 }

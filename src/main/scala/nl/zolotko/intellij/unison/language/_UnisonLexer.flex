@@ -32,8 +32,9 @@ NUMBER=\d+
 STRING_SPAN=[^\"\\]+
 STRING_ESCAPE_SEQUENCE=\\[0abfnrtvs\"'\\]
 
-WORDY=[:letter:][a-zA-Z_0-9]*
-SYMBOLY=[:letter:][a-zA-Z_0-9]*
+WORDY=(\.?[:letter:][a-zA-Z_0-9]*)+
+BLANK=_([:letter:][a-zA-Z_0-9]*)?
+SYMBOLY=(\.?[:letter:][a-zA-Z_0-9]*)*\.?(\!\$%\^&\*-=\+<>\.\~\\\/\|:)+  // !$%^&*-=+<>.~\\/|:
 
 %%
 <YYINITIAL> {
@@ -106,6 +107,7 @@ SYMBOLY=[:letter:][a-zA-Z_0-9]*
                                       return DOUBLE_QUOTE;
                                    }
   {WORDY}                          { return WORDY; }
+  {BLANK}                          { return BLANK; }
   {SYMBOLY}                        { return SYMBOLY; }
 }
 
