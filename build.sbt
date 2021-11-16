@@ -2,7 +2,6 @@ import org.jetbrains.sbtidea.Keys._
 
 ThisBuild / scalaVersion       := "3.1.0"
 ThisBuild / intellijPluginName := "intellij-unison"
-ThisBuild / intellijBuild      := "212.4746.92"
 ThisBuild / intellijPlatform   := IntelliJPlatform.IdeaCommunity
 
 lazy val `intellij-unison` =
