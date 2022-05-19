@@ -1,1 +1,1 @@
-addSbtPlugin("org.jetbrains" % "sbt-idea-plugin" % "3.12.6+0-946006d4+20210819-1006-SNAPSHOT")
+addSbtPlugin("org.jetbrains" % "sbt-idea-plugin" % "3.14.4+1-cbd2c947-SNAPSHOT")
