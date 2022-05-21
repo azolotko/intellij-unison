@@ -28,6 +28,8 @@
 
         <lang.syntaxHighlighter language="Unison"
                                 implementationClass="nl.zolotko.intellij.unison.language.UnisonSyntaxHighlighter"/>
+
+        <sdkType implementation="nl.zolotko.intellij.unison.sdk.UnisonSdkType"/>
     </extensions>
 
 </idea-plugin>

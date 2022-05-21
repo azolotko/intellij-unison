@@ -5,7 +5,7 @@ ThisBuild / intellijPluginName := "intellij-unison"
 ThisBuild / intellijBuild      := "221.5591.52"
 ThisBuild / intellijPlatform   := IntelliJPlatform.IdeaCommunity
 
-lazy val intellijUnison =
+lazy val `intellij-unison` =
   project
     .in(file("."))
     .enablePlugins(SbtIdeaPlugin)
