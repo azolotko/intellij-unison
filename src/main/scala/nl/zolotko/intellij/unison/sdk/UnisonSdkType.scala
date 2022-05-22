@@ -7,6 +7,7 @@ import com.intellij.openapi.projectRoots.impl.SdkConfigurationUtil
 import com.intellij.openapi.roots.OrderRootType
 import com.intellij.openapi.util.SystemInfo
 import com.intellij.openapi.vfs.VirtualFile
+import nl.zolotko.intellij.unison.UcmUtil
 import nl.zolotko.intellij.unison.language.UnisonIcons
 import org.jdom.Element
 
@@ -38,7 +39,7 @@ class UnisonSdkType extends SdkType("Unison Codebase Manager (UCM)") {
       false
     else {
       val unisonPath = new File(path)
-      !unisonPath.isDirectory && unisonPath.getName.toLowerCase.contains("ucm") // && getNumericVersion(path).isDefined
+      !unisonPath.isDirectory && unisonPath.getName.toLowerCase.contains("ucm") // && getVersion(path).isDefined
     }
 
   override val getPresentableName: String = "Unison Codebase Manager (UCM)"
@@ -56,7 +57,7 @@ class UnisonSdkType extends SdkType("Unison Codebase Manager (UCM)") {
   override def getVersionString(sdkHome: String): String =
     (
       if (isValidSdkHome(sdkHome))
-        getNumericVersion(sdkHome)
+        UcmUtil.ucmVersion(sdkHome)
       else
         None
     ).getOrElse("-")
@@ -79,8 +80,6 @@ class UnisonSdkType extends SdkType("Unison Codebase Manager (UCM)") {
     descriptor.setTitle(s"Select path to $getPresentableName")
     descriptor
   }
-
-  private def getNumericVersion(ucmPath: String): Option[String] = None // TODO
 }
 
 object UnisonSdkType {

@@ -16,5 +16,6 @@ lazy val `intellij-unison` =
       Compile / unmanagedResourceDirectories += baseDirectory.value / "resources",
       intellijPlugins += "com.intellij.properties".toPlugin,
       Global / intellijAttachSources := true,
-      Test / unmanagedResourceDirectories += baseDirectory.value / "testResources"
+      Test / unmanagedResourceDirectories += baseDirectory.value / "testResources",
+      libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
     )
